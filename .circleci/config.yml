@@ -63,10 +63,10 @@ jobs:
 #           at: ~/
 #       - run: cat ~/output.txt
   
-#   workflows:
-#     my_workflow:
-#       jobs:
-#         - save_hello_world
-#         - print_output_file:
-#             requires:
-#               - save_hello_world
+workflows:
+  my_workflow:
+    jobs:
+      - save_hello_world
+      - print_output_file:
+          requires:
+            - save_hello_world
