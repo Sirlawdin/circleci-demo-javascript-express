@@ -43,6 +43,21 @@ version: 2.1
 
 # version: 2.1
 
+
+commands:
+  print_pipeline_id:
+    description: "Testing how to use command to reduce duplications in pipeline script"
+    parameters:
+      to:
+        type: string
+        default: "Salaudeen O. Abdulrasaq"
+    steps:
+      - run: 
+          command: |
+            echo ${CIRCLE_WORKFLOW_ID}
+            echo "Hello" <<parameters.to>>
+            
+            
 jobs: 
   save_hello_world:
     docker:
@@ -54,18 +69,15 @@ jobs:
           paths:
             - output.txt
             
-  save_hello_salaudeen:
+      
+
+
+  my_job:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - attach_workspace:
-          at: ~/
-      - run: echo "hello ${L_NAME}" >> ~/output.txt
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - output.txt
-            
+      - print_pipeline_id
+#           to: "Allison Okikiola Omowunmi"
 
 
   print_output_file:
@@ -84,7 +96,11 @@ jobs:
 workflows:
   my_workflow:
     jobs:
-      - save_hello_salaudeen
+      - my_job:
+          requires:
+            - save_hello_world
+            - print_output_file
+        
       - save_hello_world
       - print_output_file:
           requires:
