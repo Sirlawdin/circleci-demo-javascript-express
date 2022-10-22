@@ -53,6 +53,16 @@ jobs:
           root: ~/
           paths:
             - output.txt
+            
+  dummy_log_files:
+    docker:
+      - image: circle/node:13.8.0
+    steps:
+      - run: echo "The world has change to ${L_NAME} 's world" > ~/new_world.log
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - new_world.log
 
 
   print_output_file:
@@ -61,12 +71,16 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/
-      - run: cat ~/output.txt
+      - run: 
+          command: |
+            cat ~/output.txt && cat ~/new_world.log
   
 workflows:
   my_workflow:
     jobs:
+      - dummy_log_files
       - save_hello_world
       - print_output_file:
           requires:
             - save_hello_world
+     
