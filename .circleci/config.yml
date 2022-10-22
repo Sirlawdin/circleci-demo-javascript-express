@@ -58,11 +58,13 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "hello ${L_NAME}" > ~/output1.txt
+      - attach_workspace:
+          at: ~/
+      - run: echo "hello ${L_NAME}" >> ~/output.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - output1.txt
+            - output.txt
             
 
 
@@ -75,7 +77,7 @@ jobs:
       - run: 
           command: |
             cat ~/output.txt
-            cat ~/output1.txt
+         
             
         
   
