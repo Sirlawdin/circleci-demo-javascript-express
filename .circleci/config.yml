@@ -56,7 +56,7 @@ jobs:
             
   dummy_log_files:
     docker:
-      - image: circle/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - run: echo "The world has change to ${L_NAME} 's world" > ~/new_world.log
       - persist_to_workspace:
