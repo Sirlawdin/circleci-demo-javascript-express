@@ -80,7 +80,7 @@ jobs:
 workflows:
   my_workflow:
     jobs:
-      - dummy_log_files
+      - save_hello_salaudeen
       - save_hello_world
       - print_output_file:
           requires:
