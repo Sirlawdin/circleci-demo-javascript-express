@@ -58,11 +58,11 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo "The world has change to ${L_NAME} 's world" > ~/new_world.log
+      - run: echo "The world has change to ${L_NAME} 's world" > ~/new_world.txt
       - persist_to_workspace:
           root: ~/
           paths:
-            - new_world.log
+            - new_world.txt
 
 
   print_output_file:
@@ -73,7 +73,8 @@ jobs:
           at: ~/
       - run: 
           command: |
-            cat ~/output.txt && cat ~/new_world.log
+            cat ~/output.txt
+            cat ~/new_world.txt
   
 workflows:
   my_workflow:
